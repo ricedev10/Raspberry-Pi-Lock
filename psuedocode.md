@@ -1,10 +1,12 @@
 # Goal
 
-1. To create a 4-digit (or larger) padlock
+1. To create a 4-digit padlock
 2. When pressing one of 4 buttons, a corresponding LED lights up to indicate it was pressed
 3. LCD Display (for display "Incorrect/Correct" and other information)
-4. A fifth button to enter the pin
-5. Optionally: A buzzer that "buzzes" if the pin is incorrect
+4. After pressing 4 digits, program automatically detects if it is correct or not
+5. LCD display will show:
+    a. Incorrect: Enter code again
+    b. Correct: Automatically opens drawer and gives options to press button A for changing keycode (see Setting & Resetting the Pin below) & button B for closing drawer 
 
 # Setting & Resetting the Pin
 
