@@ -7,6 +7,7 @@ from enum import Enum
 INPUT_CODE_MESSAGE = "Enter 4-digit code:"
 GREETING_MESSAGE = ("Welcome to", "Keylock PRO")
 INCORRECT_MESSAGE = ("Incorrect!", "Enter code:")
+CENSORED_KEY = "*" # displays on LCD when inputting keycode
 
 HOLD_DURATION = 2.0 # if user holds the button for 2+ seconds, they can change keycode
 keycode = [0, 0, 0, 0]  # user *must* press the corresponding buttons in this order, Note: user can change this
@@ -37,6 +38,8 @@ current_keycode = []
 current_inputs = 0 # for keeping track of syncing the state while "sleeping"
 
 # LCD display helper functions
+def append_to_display(message: str):
+    lcd.putstr(message)
 def write_to_display(message: str | tuple[str, str]):
     lcd.clear()
     if message is str:
@@ -80,8 +83,11 @@ def on_button_pressed(id: int):
     # on pressing button...
         # 1. Keep track of user inputted keycode
         # 2. Turn the led back off
+        # 3. Update LCD display of censored digits
     current_keycode.append(id)
     keypad_LEDs[id].off()
+    append_to_display(CENSORED_KEY)
+
 
     if len(current_keycode) == len(keycode):
         # we have entered maximum digits and inputted keycode
