@@ -59,11 +59,12 @@ def on_entering_keycode():
         # display incorrect
         input_now = current_inputs
         write_to_display(
-            "Incorrect", "Enter code again"
+            "Incorrect!", "Enter 4-digit code"
         )
         sleep(2.0)
         if input_now == current_inputs:
             clear_display()
+            write_to_display("Enter 4-digit code", None)
 
 def on_button_pressed(id: int):
     # on pressing button...
