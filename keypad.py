@@ -52,6 +52,8 @@ def reset_keycode() -> None:
 
 # Event functions
 def on_entering_keycode():
+    reset_keycode()
+
     if is_correct_keycode():
         # TODO: open drawer
         pass
@@ -66,19 +68,30 @@ def on_entering_keycode():
             clear_display()
             write_to_display("Enter 4-digit code", None)
 
+def on_button_start_holding(id: int):
+    keypad_LEDs[id].on() # start the LED to light up
+
 def on_button_pressed(id: int):
     # on pressing button...
         # 1. Keep track of user inputted code
-        # 2. Light up the led
+        # 2. Turn the led back off
     current_keycode.append(id)
-    keypad_LEDs[id].on()
+    keypad_LEDs[id].off()
+
+    if len(current_keycode) == len(keycode):
+        # we have entered maximum digits and inputted keycode
+        on_entering_keycode()
 
 # Connect button functions to event
 for i in range(0, len(keypad_buttons) - 1):
     button = keypad_buttons[i]
     def on_pressed(_pin: Pin):
         on_button_pressed(i)
+    def on_hold_start(_pin: Pin):
+        on_button_start_holding(i)
+
     button.irq(trigger=Pin.IRQ_RISING, handler=on_pressed)
+    button.irq(trigger=Pin.IRQ_FALLING, handler=on_hold_start)
 
 
 
