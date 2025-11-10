@@ -8,7 +8,7 @@ INPUT_CODE_MESSAGE = "Enter 4-digit code:"
 GREETING_MESSAGE = ("Welcome to", "Keylock PRO")
 INCORRECT_MESSAGE = ("Incorrect!", "Enter code:")
 
-HOLD_DURATION = 2.0 # if user holds the button for 2+ seconds, they can change code
+HOLD_DURATION = 2.0 # if user holds the button for 2+ seconds, they can change keycode
 keycode = [0, 0, 0, 0]  # user *must* press the corresponding buttons in this order, Note: user can change this
 
 # Buttons
@@ -78,7 +78,7 @@ def on_button_start_holding(id: int):
 
 def on_button_pressed(id: int):
     # on pressing button...
-        # 1. Keep track of user inputted code
+        # 1. Keep track of user inputted keycode
         # 2. Turn the led back off
     current_keycode.append(id)
     keypad_LEDs[id].off()
