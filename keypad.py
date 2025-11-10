@@ -4,6 +4,10 @@ from utime import sleep
 from enum import Enum
 
 # Configuration
+INPUT_CODE_MESSAGE = "Enter 4-digit code:"
+GREETING_MESSAGE = ("Welcome to", "Keylock PRO")
+INCORRECT_MESSAGE = ("Incorrect!", "Enter code:")
+
 HOLD_DURATION = 2.0 # if user holds the button for 2+ seconds, they can change code
 keycode = [0, 0, 0, 0]  # user *must* press the corresponding buttons in this order, Note: user can change this
 
@@ -33,12 +37,14 @@ current_keycode = []
 current_inputs = 0 # for keeping track of syncing the state while "sleeping"
 
 # LCD display helper functions
-def write_to_display(line1: str, line2: str | None):
+def write_to_display(message: str | tuple[str, str]):
     lcd.clear()
-    lcd.putstr(line1)
-    if line2:
+    if message is str:
+        lcd.putstr(line1)
+    else:
+        lcd.putstr(message[0])
         lcd.move_to(0, 1)
-        lcd.putstr(line2)
+        lcd.putstr(message[1])
 def clear_display():
     lcd.clear()
 
@@ -56,17 +62,16 @@ def on_entering_keycode():
 
     if is_correct_keycode():
         # TODO: open drawer
+
         pass
     else:
         # display incorrect
         input_now = current_inputs
-        write_to_display(
-            "Incorrect!", "Enter 4-digit code"
-        )
+        write_to_display(INCORRECT_MESSAGE)
         sleep(2.0)
         if input_now == current_inputs:
             clear_display()
-            write_to_display("Enter 4-digit code", None)
+            write_to_display(INPUT_CODE_MESSAGE)
 
 def on_button_start_holding(id: int):
     keypad_LEDs[id].on() # start the LED to light up
@@ -82,6 +87,12 @@ def on_button_pressed(id: int):
         # we have entered maximum digits and inputted keycode
         on_entering_keycode()
 
+
+# Initialize program
+write_to_display(GREETING_MESSAGE)
+sleep(1)
+write_to_display(INPUT_CODE_MESSAGE)
+
 # Connect button functions to event
 for i in range(0, len(keypad_buttons) - 1):
     button = keypad_buttons[i]
@@ -92,8 +103,6 @@ for i in range(0, len(keypad_buttons) - 1):
 
     button.irq(trigger=Pin.IRQ_RISING, handler=on_pressed)
     button.irq(trigger=Pin.IRQ_FALLING, handler=on_hold_start)
-
-
 
 # Main loop can now do other things
 while True:
