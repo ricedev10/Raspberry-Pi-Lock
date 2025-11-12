@@ -7,6 +7,7 @@ from pico_i2c_lcd import I2cLcd
 # --- CONFIGURATION ---
 # =====================
 RUN_SPEED = 0.3  # check if user is pressing button every _ seconds
+CENSORED_CHARACTER = "*"  # digit that displays on the screen after pressing button
 
 # =====================
 # --- MOTOR SETUP ---
@@ -141,25 +142,25 @@ while True:
         print("Blue Button Pressed")
         light_led("B")
         entered_code.append("B")
-        lcd.putstr("*")
+        lcd.putstr(CENSORED_CHARACTER)
 
     if Whitebutton.value() == 0:
         print("White Button Pressed")
         light_led("W")
         entered_code.append("W")
-        lcd.putstr("*")
+        lcd.putstr(CENSORED_CHARACTER)
 
     if Redbutton.value() == 0:
         print("Red Button Pressed")
         light_led("R")
         entered_code.append("R")
-        lcd.putstr("*")
+        lcd.putstr(CENSORED_CHARACTER)
 
     if Yellowbutton.value() == 0:
         print("Yellow Button Pressed")
         light_led("Y")
         entered_code.append("Y")
-        lcd.putstr("*")
+        lcd.putstr(CENSORED_CHARACTER)
 
     # Once 4 buttons are pressed, check code
     if len(entered_code) == 4:
