@@ -19,7 +19,7 @@ pwma.freq(1000)
 
 
 def RotateCW(duty):
-    """Rotate motor clockwise at specified duty cycle (0-100)"""
+    # Rotate motor clockwise at specified duty cycle (0-100)
     ina1.value(1)
     ina2.value(0)
     duty_16 = int((duty * 65536) / 100)
@@ -27,7 +27,7 @@ def RotateCW(duty):
 
 
 def RotateCCW(duty):
-    """Rotate motor counter-clockwise at specified duty cycle (0-100)"""
+    # Rotate motor counter-clockwise at specified duty cycle (0-100)
     ina1.value(0)
     ina2.value(1)
     duty_16 = int((duty * 65536) / 100)
@@ -35,7 +35,7 @@ def RotateCCW(duty):
 
 
 def StopMotor():
-    """Stop the motor completely"""
+    # Stop the motor completely
     ina1.value(0)
     ina2.value(0)
     pwma.duty_u16(0)
@@ -50,7 +50,7 @@ i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
 I2C_ADDR = i2c.scan()[0]
 lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
 lcd.clear()
-lcd.putstr("Enter Code:")
+lcd.putstr("Enter Code: ")
 
 # =====================
 # --- LED SETUP (NeoPixel strip) ---
@@ -86,7 +86,7 @@ entered_code = []
 # --- HELPER FUNCTIONS ---
 # =====================
 def light_led(color):
-    """Light up one LED in its color briefly."""
+    # Light up one LED in its color briefly.
     np.fill((0, 0, 0))  # turn all off first
     if color == "B":
         np[0] = LED_COLORS["B"]
@@ -103,7 +103,7 @@ def light_led(color):
 
 
 def check_code():
-    """Check entered code against CORRECT_CODE."""
+    # Check entered code against CORRECT_CODE.
     global entered_code
     if entered_code == CORRECT_CODE:
         lcd.clear()
