@@ -10,7 +10,7 @@ Pico code for pico microcontroller project. This is essentially for a coded padl
 4. After pressing 4 digits, program automatically detects if inputted keycode is correct or not
 5. LCD display will show:
    a. Incorrect: Enter keycode again
-   b. Correct: Automatically opens drawer and gives options to press button A for changing keycode (see [Setting & Resetting the Pin](Setting & Resetting the Pin below)) & button B for closing drawer
+   b. Correct: Automatically opens drawer and gives options to press button A for changing keycode (see [Setting & Resetting the Pin](#setting-&-resetting-the-pin) below) & button B for closing drawer
 
 # Setting & Resetting the Pin
 
