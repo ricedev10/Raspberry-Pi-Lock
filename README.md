@@ -1,3 +1,7 @@
+# About
+
+Pico code for pico microcontroller project. This is essentially for a coded padlock that opens a drawer.
+
 # Goal
 
 1. To create a 4-digit padlock keycode
