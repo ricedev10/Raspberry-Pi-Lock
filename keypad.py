@@ -4,6 +4,11 @@ import neopixel
 from pico_i2c_lcd import I2cLcd
 
 # =====================
+# --- CONFIGURATION ---
+# =====================
+RUN_SPEED = 0.3  # check if user is pressing button every _ seconds
+
+# =====================
 # --- MOTOR SETUP ---
 # =====================
 ina1 = Pin(18, Pin.OUT)
@@ -137,29 +142,27 @@ while True:
         light_led("B")
         entered_code.append("B")
         lcd.putstr("*")
-        sleep(0.3)
 
     if Whitebutton.value() == 0:
         print("White Button Pressed")
         light_led("W")
         entered_code.append("W")
         lcd.putstr("*")
-        sleep(0.3)
 
     if Redbutton.value() == 0:
         print("Red Button Pressed")
         light_led("R")
         entered_code.append("R")
         lcd.putstr("*")
-        sleep(0.3)
 
     if Yellowbutton.value() == 0:
         print("Yellow Button Pressed")
         light_led("Y")
         entered_code.append("Y")
         lcd.putstr("*")
-        sleep(0.3)
 
     # Once 4 buttons are pressed, check code
     if len(entered_code) == 4:
         check_code()
+
+    sleep(RUN_SPEED)
